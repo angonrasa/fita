@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kuis Kelas 5 SD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="display.css">
+</head>
+<body>
+<div id="stage" data-st="SIAP" data-layout="portrait" data-aside="0">
+  <div id="sambung" title="koneksi"></div>
+  <div id="konfeti" aria-hidden="true"></div>
+
+  <header>
+    <div class="merek">
+      <img src="img/maskot-kecil.png" alt="">
+      <span class="wm">Kuis Kelas 5</span>
+    </div>
+    <div id="judulRonde"></div>
+    <div id="posisi"></div>
+  </header>
+  <div id="segmen"></div>
+  <button id="aksi" type="button" hidden></button>
+  <div id="layarPenuh" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    <span>Ketuk layar untuk mode layar penuh</span>
+  </div>
+
+  <div id="badan">
+  <main>
+    <!-- SIAP: tenang, soal belum dibuka -->
+    <section id="vIntro" class="v">
+      <div id="introMaskot"><img src="img/maskot.png" alt="" onerror="this.remove()"></div>
+      <div id="introRonde"></div>
+      <h1 id="introJudul"></h1>
+      <div id="introInfo"></div>
+      <div id="introCatatan">Bersiap</div>
+      <!-- K5 (portrait): hitung mundur pembuka; hanya tampil saat mode otomatis -->
+      <div id="hitung" hidden><b id="hitungAngka"></b></div>
+      <div id="ajakMulai" class="ajak" hidden><span>Ketuk jawaban yang kamu pilih</span></div>
+      <div id="caraMain"></div>
+      <div id="ajakFollowI" class="ajakFollow" hidden></div>
+    </section>
+
+    <!-- BERJALAN: hanya yang dibutuhkan untuk menjawab -->
+    <section id="vSoal" class="v">
+      <div class="timerWrap">
+        <svg viewBox="0 0 100 100"><defs><linearGradient id="gEmas" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3a0"/><stop offset="1" stop-color="#f5a623"/></linearGradient><linearGradient id="gMerah" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a95"/><stop offset="1" stop-color="#ff3d55"/></linearGradient></defs><circle class="trek" cx="50" cy="50" r="45"/><circle id="cincin" cx="50" cy="50" r="45"/></svg>
+        <div id="detik">20</div>
+      </div>
+      <div class="kartu kartuSoal"><div id="tingkat"></div><div id="soal"></div></div>
+      <div id="pilihan"></div>
+      <div id="strip"></div>
+      <div id="cta"><span>Ketuk jawaban yang kamu pilih</span></div>
+      <div id="ticker"></div>
+    </section>
+
+    <!-- HASIL: jawaban dulu, lalu peringkat -->
+    <section id="vHasil" class="v">
+      <div id="soalKecil"></div>
+      <!-- Landscape: banner kunci lama. Portrait (K4): kartu sebaran jawaban, kunci terungkap di dalamnya. -->
+      <div id="kunciBanner" class="kartu"></div>
+      <div id="hasilKartu" class="kartu"><div id="hasilStat"></div><div id="hasilPilihan"></div></div>
+      <div id="hasilSaya" class="kartu"></div>
+      <div id="bagTercepat"><div class="jdl">Hasil soal ini</div><div id="tercepat"></div></div>
+      <div id="juga"></div>
+      <div id="kartuKls" class="kartu kls" hidden><div class="jdl">Skor sementara</div><div id="klsSesi"></div></div>
+    </section>
+
+    <!-- RONDE_SELESAI dan SESI_SELESAI -->
+    <section id="vAkhir" class="v">
+      <div id="akhirMaskot" style="text-align:center"><img src="img/maskot.png" alt="" onerror="this.remove()"></div>
+      <h2 id="akhirJudul"></h2>
+      <div id="akhirSub"></div>
+      <!-- K5: portrait memakai podium; landscape tetap memakai daftar lama -->
+      <div id="podium"></div>
+      <div id="daftarAkhir"></div>
+      <div id="kabarAkhir" class="kartu" hidden></div>
+      <div id="ajakFollowA" class="ajakFollow" hidden></div>
+    </section>
+  </main>
+
+  <!-- Kolom kanan (landscape saja): dua klasemen lima teratas -->
+  <aside id="kanan">
+    <div class="kartu klsKartu"><div class="jdl">Klasemen sesi</div><div id="klsSesiK" class="kls"></div></div>
+    <div class="kartu klsKartu"><div class="jdl" id="jdlRonde">Klasemen ronde</div><div id="klsRondeK" class="kls"></div></div>
+  </aside>
+  </div>
+</div>
+
+
+<div id="masuk" hidden>
+  <div class="mk">
+    <img src="img/maskot-kecil.png" alt="">
+    <h2>Halo! Siapa namamu?</h2>
+    <p>Namamu akan muncul di rapor skor</p>
+    <input id="masukNama" type="text" maxlength="14" placeholder="Ketik namamu" autocomplete="off" autocapitalize="words" enterkeyhint="go">
+    <button id="masukGo" type="button" disabled>Ayo main ▶</button>
+  </div>
+</div>
+<style>
+#aksi{position:fixed;left:50%;bottom:max(2.2vh,14px);transform:translateX(-50%);z-index:50;padding:14px 34px;border:0;border-radius:999px;
+ font:800 20px 'Plus Jakarta Sans',system-ui,sans-serif;color:#2a1b00;background:linear-gradient(135deg,#ffe3a0,#f5a623);box-shadow:0 6px 22px rgba(0,0,0,.4);cursor:pointer}
+#aksi{white-space:nowrap;font-size:18px!important;padding:12px 26px!important}
+#strip,#ticker{display:none!important}
+#masuk{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:24px;
+ background:radial-gradient(120% 90% at 50% 10%,#16264d,#060913 70%);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+#masuk[hidden]{display:none}
+.mk{width:100%;max-width:380px;text-align:center;color:#fff;animation:mkIn .5s ease both}
+@keyframes mkIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.mk img{width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(245,196,81,.35))}
+.mk h2{font:800 28px 'Sora',sans-serif;margin:10px 0 4px}
+.mk p{margin:0 0 22px;opacity:.7;font-size:15px}
+.mk input{width:100%;box-sizing:border-box;padding:16px 18px;font:700 20px 'Plus Jakarta Sans',system-ui,sans-serif;text-align:center;color:#fff;
+ background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.22);border-radius:18px;outline:none}
+.mk input:focus{border-color:#f5c451;box-shadow:0 0 0 4px rgba(245,196,81,.2)}
+.mk input::placeholder{color:rgba(255,255,255,.4);font-weight:600}
+.mk button{margin-top:16px;width:100%;padding:16px;border:0;border-radius:999px;font:800 20px 'Plus Jakarta Sans',system-ui,sans-serif;
+ color:#2a1b00;background:linear-gradient(135deg,#ffe3a0,#f5a623);box-shadow:0 6px 22px rgba(0,0,0,.4);cursor:pointer}
+.mk button:disabled{opacity:.4;filter:grayscale(.6);cursor:default}
+#aksi{position:absolute!important;top:auto!important;bottom:4.5cqw!important;font-size:4.6cqw!important;padding:2.6cqw 6.5cqw!important}
+#stage[data-hs="salah"] #bagTercepat,#stage[data-hs="salah"] #juga,#stage[data-hs="salah"] #kartuKls{display:none!important}
+#stage[data-hs="benar"] #hasilSaya{display:none!important}
+#hasilSaya{display:flex;justify-content:space-between;align-items:center;gap:3cqw;padding:3.6cqw 4.4cqw;color:#fff}
+#hasilSaya .pt{font:800 10cqw 'Sora',sans-serif;color:#f5c451;line-height:1}
+#hasilSaya .pt0{font:800 5.2cqw 'Sora',sans-serif}
+#hasilSaya small{display:block;font-size:3.6cqw;opacity:.8;margin-top:.8cqw}
+#hasilSaya .kn{display:flex;flex-direction:column;align-items:flex-end;gap:1.4cqw;text-align:right}
+.hp .pr{display:none}
+#stage[data-hs="salah"] #hasilStat{font-size:4.8cqw!important;font-weight:800!important;color:#fff!important}
+.hp .tag{margin-left:auto;font-size:2.8cqw;font-weight:800;padding:.7cqw 2cqw;border-radius:99px;background:rgba(255,255,255,.18);color:#fff;white-space:nowrap}
+.hp.milikku,.hp.milikku .tx,.hp.milikku b{opacity:1!important;filter:none!important}
+.hp.milikku{outline:.5cqw solid #ff7a8a;outline-offset:-.3cqw}
+#aksi:disabled{opacity:.45;filter:grayscale(.6);cursor:default}
+.opsi.dipilih{outline:.9cqw solid #f5c451;box-shadow:0 0 3cqw rgba(245,196,81,.55)}
+.rapor{width:100%;color:#fff;text-align:center}
+.rapor .bintang{font-size:13cqw;line-height:1;color:#f5c451;letter-spacing:1cqw;text-shadow:0 0 4cqw rgba(245,196,81,.6)}
+.rapor .skor{font:800 9cqw 'Sora',sans-serif;margin-top:1.5cqw}
+.rapor .subr{font-size:4.4cqw;opacity:.85;margin-bottom:4cqw}
+.rb{display:grid;grid-template-columns:1fr auto;gap:.8cqw 3cqw;background:rgba(255,255,255,.08);border-radius:3cqw;padding:2.6cqw 3.6cqw;margin-bottom:2.2cqw;text-align:left;font-size:4.2cqw}
+.bar2{grid-column:1/3;height:1.6cqw;border-radius:9px;background:rgba(255,255,255,.14);overflow:hidden}
+.bar2::after{content:'';display:block;height:100%;width:var(--w);background:linear-gradient(90deg,#ffe3a0,#f5a623)}
+#aksi:active{transform:translateX(-50%) scale(.96)}
+.ajakFollow,#kabarAkhir,#layarPenuh{display:none!important}
+.opsi{-webkit-tap-highlight-color:transparent}
+</style>
+<div id="sx">
+  <button id="sxTombol" type="button" aria-label="Atur suara"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+  <div id="sxPanel" hidden>
+    <label><span>Utama <b id="sxVMaster"></b></span><input id="sxMaster" type="range" min="0" max="100"></label>
+    <label><span>Musik latar <b id="sxVMusik"></b></span><input id="sxMusik" type="range" min="0" max="100"></label>
+    <label><span>Efek suara <b id="sxVEfek"></b></span><input id="sxEfek" type="range" min="0" max="100"></label>
+    <button id="sxBisu" type="button"></button>
+    <button id="sxFs" type="button"></button>
+    <button id="sxMenyala" type="button"></button>
+    <button id="sxTampil" type="button"></button>
+    <button id="sxSamar" type="button"></button>
+  </div>
+</div>
+
+<script src="live-lokal.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const stage = $('stage');
+// Layout dipilih lewat parameter: bawaan portrait 9:16; ?layout=landscape untuk 16:9.
+const LAND = new URLSearchParams(location.search).get('layout') === 'landscape';
+stage.dataset.layout = LAND ? 'landscape' : 'portrait';
+const KONTROL = false; // mode satu HP (ketuk = aksi)
+let S = null;
+let akhirOto = null; // K5: batas waktu hitung mundur otomatis (performance.now), dihitung dari state.otomatisDalam
+const KELILING = 2 * Math.PI * 45; // keliling cincin timer
+
+function el(tag, kelas, teks) {
+  const e = document.createElement(tag);
+  if (kelas) e.className = kelas;
+  if (teks != null) e.textContent = teks;
+  return e;
+}
+const huruf1 = (nama) => (Array.from(String(nama || '?').trim())[0] || '?').toUpperCase();
+
+// Nama dan avatar berasal dari penonton: selalu lewat textContent, bukan innerHTML.
+function avatar(p) {
+  const a = el('div', 'av');
+  a.appendChild(el('span', '', huruf1(p.nama)));
+  if (typeof p.avatar === 'string' && /^https:\/\//.test(p.avatar)) {
+    const g = new Image();
+    g.referrerPolicy = 'no-referrer';
+    g.onload = () => a.appendChild(g); // gagal dimuat -> tetap tampil inisial
+    g.src = p.avatar;
+  }
+  return a;
+}
+
+const fmtWaktu = (w) => String(w).replace('.', ',') + ' dtk';
+const fmtPoin = (n) => Number(n || 0).toLocaleString('id-ID');
+const REDUKSI = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+function setCincin(sisa, animasi) {
+  const c = $('cincin');
+  const frac = S && S.soal.durasi ? Math.max(0, Math.min(1, sisa / S.soal.durasi)) : 0;
+  if (!animasi) c.style.transition = 'none';
+  c.style.strokeDasharray = KELILING;
+  c.style.strokeDashoffset = KELILING * (1 - frac);
+  if (!animasi) { void c.getBoundingClientRect(); c.style.transition = 'stroke-dashoffset 1s linear'; }
+  const kritis = S.status === 'BERJALAN' && sisa <= 5;
+  c.classList.toggle('kritis', kritis);
+  $('detik').classList.toggle('kritis', kritis);
+  stage.classList.toggle('kritis', kritis);
+  $('detik').textContent = String(sisa);
+}
+
+let kunciTicker = '';
+// K3: avatar penjawab muncul sebentar (maks. 3 sekaligus). Hanya nama + avatar, huruf jawaban tidak pernah dikirim.
+function munculJawab(d) {
+  if (!S || S.status !== 'BERJALAN' || LAND || !d) return;
+  const t = $('ticker');
+  const c = el('div', 'chip');
+  c.append(avatar({ nama: d.nama, avatar: d.avatar }), el('span', 'nm', String(d.nama || '?')));
+  t.appendChild(c);
+  while (t.children.length > 3) t.removeChild(t.firstChild);
+  setTimeout(() => { if (c.parentNode) c.remove(); }, 4200);
+}
+
+function isiPenjawab(n) {
+  const strip = $('strip');
+  strip.textContent = '';
+  if (S.status !== 'BERJALAN') return;
+  const b = el('strong', '', String(n));
+  strip.append(b, ' sudah menjawab');
+  // Petunjuk hanya di dua soal pertama; setelah itu penonton sudah paham.
+  if (LAND && S.ronde.nomor === 1 && S.soal.nomor <= 2) {
+    strip.appendChild(el('span', '', 'Ketik huruf atau jawabannya di komentar'));
+    strip.lastChild.id = 'petunjuk';
+  }
+}
+
+function barisKls(p, i) {
+  const b = el('div', 'bar');
+  b.append(el('div', 'r', String(i + 1)), avatar(p), el('div', 'n', p.nama), el('div', 'p', String(p.poin)));
+  return b;
+}
+
+// K4: lencana runtutan benar yang menonjol (api; makin panas mulai 5 beruntun).
+function lencanaApi(streak) {
+  return el('span', 'lencana' + (streak >= 5 ? ' panas' : ''), '🔥 ' + streak + 'X BERUNTUN');
+}
+
+function barisJuara(p, i, opsi = {}) {
+  const b = el('div', 'kartu baris r' + (i + 1));
+  b.append(el('div', 'no', String(i + 1)), avatar(p));
+  const nm = el('div', 'nm', p.nama);
+  const adaWaktu = p.waktu != null;
+  const len = (!opsi.tanpaLencana && p.streak >= S.lencanaMin) ? lencanaApi(p.streak) : null;
+  if (!LAND) {
+    if (adaWaktu) nm.appendChild(el('small', '', fmtWaktu(p.waktu)));
+    if (len) nm.appendChild(len);
+  }
+  b.appendChild(nm);
+  if (LAND) {
+    if (adaWaktu) b.appendChild(el('div', 'wk', fmtWaktu(p.waktu)));
+    if (len) b.appendChild(len);
+  }
+  b.appendChild(el('div', 'pn', opsi.poinTeks != null ? opsi.poinTeks : (p.poin != null ? '+' + p.poin : '')));
+  return b;
+}
+
+// ---- K4: layar hasil (portrait) ----
+// Urutan: sebaran jawaban tumbuh -> kunci terungkap (benar menyala, salah meredup, konfeti) ->
+// pop-up "Tercepat!" -> peringkat dengan panah naik/turun. Waktunya diatur di display.css (--ungkap).
+let kunciHasil = null; // animasi hanya diputar sekali per soal; render ulang soal yang sama langsung ke keadaan akhir
+
+function hitungNaik(node, target, ulang) {
+  node.textContent = target + '%';
+  if (ulang || REDUKSI || !target) return;
+  node.textContent = '0%';
+  const mulai = performance.now() + 100, ms = 800;
+  const langkah = (t) => {
+    if (!node.isConnected) return; // DOM sudah dibangun ulang
+    const f = Math.max(0, Math.min(1, (t - mulai) / ms));
+    node.textContent = Math.round(target * (1 - Math.pow(1 - f, 3))) + '%';
+    if (f < 1) requestAnimationFrame(langkah);
+  };
+  requestAnimationFrame(langkah);
+}
+
+function isiStat(h) {
+  const s = $('hasilStat'); s.textContent = '';
+  const kiri = el('span', 'sl');
+  if (!h.penjawab) kiri.append('Waktu habis');
+  else if (h.totalBenar > 0) kiri.append(el('strong', '', 'Benar!'), ' Hebat sekali 🎉');
+  else kiri.append('Belum tepat');
+  s.appendChild(kiri);
+}
+
+function hasilPortrait(h, ulang) {
+  const wrap = $('hasilPilihan'); wrap.textContent = '';
+  const idxKunci = 'ABCD'.indexOf(h.kunci);
+  isiStat(h);
+  S.soal.pilihan.forEach((t, i) => {
+    const sb = (h.sebaran && h.sebaran[i]) || { n: 0, persen: 0 };
+    const benar = i === idxKunci;
+    const r = el('div', 'hp ' + (benar ? 'benar' : 'salah'));
+    const frac = sb.n > 0 ? Math.max(0.02, sb.persen / 100) : 0;
+    r.style.setProperty('--p', String(Math.min(1, frac)));
+    r.style.setProperty('--k', String(i));
+    r.appendChild(el('i', 'isi'));
+    if (benar) r.appendChild(el('i', 'isiH'));
+    const pr = el('em', 'pr');
+    r.append(el('b', '', 'ABCD'[i]), el('span', 'tx', t));
+    if (benar) r.appendChild(el('span', 'ck', '✓'));
+    r.appendChild(pr);
+    wrap.appendChild(r);
+    hitungNaik(pr, sb.persen || 0, ulang);
+  });
+}
+
+function kartuKosong(h) {
+  const k = el('div', 'kartu tcKosong');
+  k.appendChild(el('b', '', h.penjawab ? '😮' : '💤'));
+  const t = el('span', '', h.penjawab ? 'Belum ada yang menjawab benar' : 'Belum ada yang menjawab');
+  t.appendChild(el('small', '', 'Soal berikutnya: jadilah yang tercepat!'));
+  k.appendChild(t);
+  return k;
+}
+
+// Peringkat 1 tampil besar sebagai pop-up "Tercepat!"; peringkat 2-3 ringkas satu baris.
+function barisTercepat(p, i) {
+  const hero = i === 0;
+  const b = el('div', 'kartu baris r' + (i + 1) + (hero ? ' hero' : ''));
+  b.append(el('div', 'no', String(i + 1)), avatar(p));
+  const nm = el('div', 'nm');
+  nm.appendChild(el('div', 'nmt', p.nama));
+  const adaLencana = p.streak >= S.lencanaMin;
+  if (hero) {
+    const meta = el('div', 'meta');
+    meta.appendChild(el('small', '', fmtWaktu(p.waktu)));
+    if (adaLencana) meta.appendChild(lencanaApi(p.streak));
+    nm.appendChild(meta);
+    b.appendChild(nm);
+  } else {
+    if (adaLencana) nm.appendChild(el('span', 'api', '🔥' + p.streak));
+    b.append(nm, el('div', 'wk', fmtWaktu(p.waktu)));
+  }
+  b.appendChild(el('div', 'pn', '+' + fmtPoin(p.poin)));
+  if (hero) b.appendChild(el('div', 'pita', '⚡ HEBAT!'));
+  return b;
+}
+
+// Peringkat sementara: panah naik/turun, "tinggal N poin lagi" ke peringkat di atasnya, lencana runtutan.
+function barisKlsHasil(p, i, gerak) {
+  const rank = p.peringkat || i + 1;
+  const b = el('div', 'kb' + (rank === 1 ? ' juara' : '') + (p.naik > 0 ? ' naik' : p.naik < 0 ? ' turun' : ''));
+  b.style.setProperty('--i', String(i));
+  const t = el('div', 'tt');
+  const n1 = el('div', 'n1');
+  n1.appendChild(el('span', 'n', p.nama));
+  if (p.streak >= S.lencanaMin) n1.appendChild(el('span', 'api', '🔥' + p.streak));
+  t.appendChild(n1);
+  let sb;
+  sb = 'Total skormu';
+  t.appendChild(el('div', 'sb', sb));
+  b.append(el('div', 'r', '★'), avatar(p), t);
+  if (p.naik > 0) b.appendChild(el('div', 'gr naik', '▲' + p.naik));
+  else if (p.naik < 0) b.appendChild(el('div', 'gr turun', '▼' + Math.abs(p.naik)));
+  else if (p.naik == null && gerak) b.appendChild(el('div', 'gr baru', 'BARU')); // baru masuk klasemen
+  b.appendChild(el('div', 'p', fmtPoin(p.poin)));
+  return b;
+}
+
+let timerKonfeti = null;
+function konfeti(jumlah = 18) {
+  if (REDUKSI) return;
+  const k = $('konfeti'); k.textContent = '';
+  clearTimeout(timerKonfeti);
+  const warna = ['#f5c451', '#62b8f6', '#f56f94', '#34c98b', '#ffe3a0'];
+  const acak = (a, b) => a + Math.random() * (b - a);
+  for (let i = 0; i < jumlah; i++) {
+    const d = document.createElement('i');
+    d.style.setProperty('--x', acak(4, 96).toFixed(1) + '%');
+    d.style.setProperty('--w', warna[i % warna.length]);
+    d.style.setProperty('--d', acak(1.0, 1.5).toFixed(2) + 's');
+    d.style.setProperty('--t', acak(1.6, 2.4).toFixed(2) + 's');
+    d.style.setProperty('--g', acak(-8, 8).toFixed(1) + 'cqw');
+    d.style.setProperty('--rot', Math.round(acak(-540, 540)) + 'deg');
+    k.appendChild(d);
+  }
+  timerKonfeti = setTimeout(() => { k.textContent = ''; }, 4300);
+}
+
+// ---- K5: intro, antar-ronde, dan akhir (portrait) ----
+const AJAK_RONDE = 'Seru? Ajak temanmu ikut, bagikan LIVE ini';
+const AJAK_AKHIR = 'Terima kasih! Follow supaya tidak ketinggalan kuis berikutnya';
+const AJAK_AWAL = 'Suka kuisnya? Follow dan bagikan LIVE ini ke temanmu';
+
+function isiAjak(node, teks) {
+  node.textContent = '';
+  node.append(el('span', 'hati', '♥'), ' ' + teks);
+}
+
+function ulangAnim(node) {
+  node.style.animation = 'none';
+  void node.offsetWidth;
+  node.style.animation = '';
+}
+
+// Hitung mundur lokal: 'tick' dari mesin hanya ada saat BERJALAN, jadi layar menghitung sendiri dari state.otomatisDalam.
+let hitungKunci = '', hitungN = null;
+function segarkanHitung(bunyi) {
+  if (!S || LAND || akhirOto == null) return;
+  const n = Math.max(0, Math.ceil((akhirOto - performance.now()) / 1000));
+  const a = $('hitungAngka'), r = $('hitungRonde');
+  if (S.status === 'SIAP' && a) {
+    const tampil = String(Math.max(1, n)); // jangan sempat menampilkan 0 sebelum soal terbuka
+    if (a.textContent !== tampil) { a.textContent = tampil; ulangAnim(a); }
+  }
+  if (S.status === 'RONDE_SELESAI' && r) r.textContent = n > 0 ? 'dalam ' + n + ' dtk' : 'sebentar lagi';
+  const k = S.status + ':' + S.ronde.nomor + ':' + S.soal.nomor;
+  // Tik hanya di pembuka ronde (soal 1), pada angka 2 dan 1; angka 3 dan "mulai" sudah ada suaranya sendiri.
+  if (bunyi && k === hitungKunci && n !== hitungN && S.status === 'SIAP' && S.soal.nomor === 1 && n >= 1 && n <= 2) AUD.sfx.tik(n);
+  hitungKunci = k; hitungN = n;
+}
+
+function kolomPodium(p, rank) {
+  const k = el('div', 'pk r' + rank);
+  if (!p) k.classList.add('kosongK');
+  else {
+    if (rank === 1) k.appendChild(el('div', 'mhk', '👑'));
+    k.append(avatar(p), el('div', 'nmP', p.nama), el('div', 'ptP', fmtPoin(p.poin) + ' poin'));
+  }
+  k.appendChild(el('div', 'pilar', String(rank)));
+  return k;
+}
+
+// Susunan podium: peringkat 2 di kiri, 1 di tengah, 3 di kanan.
+function isiPodium(daftar) {
+  const w = $('podium'); w.textContent = '';
+  if (!daftar.length) { w.appendChild(el('div', 'kosong', 'Belum ada skor')); return; }
+  [1, 0, 2].forEach((i) => w.appendChild(kolomPodium(daftar[i], i + 1)));
+}
+
+function barisKabar(ikon, kecil, besar, kanan) {
+  const b = el('div', 'kabarB');
+  const t = el('div', 'tk2');
+  t.append(el('small', '', kecil), el('div', 'bs', besar));
+  b.append(el('div', 'ik', ikon), t);
+  if (kanan) b.appendChild(kanan);
+  return b;
+}
+
+function isiKabar() {
+  const k = $('kabarAkhir'); k.textContent = '';
+  if (S.status === 'RONDE_SELESAI') {
+    const l = S.klasemen.sesi[0];
+    if (l) k.appendChild(barisKabar('👑', 'Juara sesi sementara', l.nama, el('div', 'kn', fmtPoin(l.poin) + ' poin')));
+    const rb = S.rondeBerikut;
+    if (rb) {
+      let kn = null;
+      if (S.otomatisDalam != null) { kn = el('div', 'kn pil'); kn.id = 'hitungRonde'; }
+      k.appendChild(barisKabar('➜', 'Berikutnya · Ronde ' + rb.nomor, rb.judul, kn));
+    }
+  } else if (S.status === 'SESI_SELESAI' && S.pemain > 0) {
+    k.appendChild(barisKabar('👥', 'Ikut bermain', S.pemain + ' pemain', null));
+  }
+  k.hidden = !k.children.length;
+}
+
+let kunciAkhir = null; // animasi akhir hanya sekali per status/ronde; render ulang langsung ke keadaan akhir
+
+function gambar() {
+  if (!S) return;
+  const st = S.status;
+  stage.dataset.st = st;
+  if (LAND) {
+    $('posisi').textContent = 'Soal ' + S.soal.nomor + '/' + S.soal.total;
+    $('judulRonde').textContent = 'Ronde ' + S.ronde.nomor + (S.ronde.judul ? ' · ' + S.ronde.judul : '');
+  } else {
+    $('posisi').textContent = 'Ronde ' + S.ronde.nomor + ' · Soal ' + S.soal.nomor + '/' + S.soal.total;
+  }
+
+  // Segmen progres tipis
+  const seg = $('segmen'); seg.textContent = '';
+  for (let i = 1; i <= S.soal.total; i++) {
+    const t = document.createElement('i');
+    const selesai = st === 'HASIL' || st === 'RONDE_SELESAI' || st === 'SESI_SELESAI';
+    if (i < S.soal.nomor || (i === S.soal.nomor && selesai)) t.className = 'sudah';
+    else if (i === S.soal.nomor) t.className = 'kini';
+    seg.appendChild(t);
+  }
+
+  // ---- Intro (SIAP) ----
+  const awal = S.ronde.nomor === 1 && S.soal.nomor === 1 && !S.klasemen.sesi.length;
+  const j = $('introJudul'); j.textContent = '';
+  j.style.fontSize = '';
+  if (LAND) {
+    $('introRonde').textContent = awal ? '' : 'Ronde ' + S.ronde.nomor + ' · ' + S.ronde.judul;
+    if (awal) { const m = el('mark', '', S.judulAcara); j.appendChild(m); }
+    else { j.append('Soal ', el('mark', '', String(S.soal.nomor))); }
+  } else {
+    // K5: tiga rupa pembuka. Awal acara (judul acara), awal ronde (judul ronde besar), soal biasa ("Soal N").
+    const awalRonde = S.soal.nomor === 1;
+    const oto = st === 'SIAP' && S.otomatisDalam != null;
+    let besar = '';
+    if (awal) {
+      besar = S.judulAcara;
+      $('introRonde').textContent = '';
+      $('introInfo').textContent = 'Ronde 1 · ' + S.ronde.judul + ' · ' + S.soal.total + ' soal';
+    } else if (awalRonde) {
+      besar = S.ronde.judul;
+      $('introRonde').textContent = 'Ronde ' + S.ronde.nomor + ' dari ' + S.ronde.jumlah;
+      $('introInfo').textContent = S.soal.total + ' soal';
+    } else {
+      $('introRonde').textContent = 'Ronde ' + S.ronde.nomor + ' · ' + S.ronde.judul;
+      $('introInfo').textContent = '';
+    }
+    if (awal || awalRonde) {
+      j.appendChild(el('mark', '', besar));
+      j.style.fontSize = besar.length > 18 ? '7.6cqw' : besar.length > 12 ? '9.4cqw' : '';
+    } else j.append('Soal ', el('mark', '', String(S.soal.nomor)));
+    const cat = $('introCatatan');
+    cat.textContent = oto ? 'Mulai dalam' : 'Bersiap';
+    cat.classList.toggle('tanpaTitik', oto);
+    $('hitung').hidden = !oto;
+    $('ajakMulai').hidden = awal; // awal acara sudah punya tiga kartu cara main
+    $('vIntro').classList.toggle('padat', awal);
+    const aF = $('ajakFollowI');
+    aF.hidden = !(awal || awalRonde);
+    if (!aF.hidden) isiAjak(aF, awal ? AJAK_AWAL : AJAK_RONDE);
+  }
+  const cara = $('caraMain'); cara.textContent = '';
+  if (awal) {
+    [['A', 'Ketuk jawaban yang kamu pilih'], ['⚡', 'Makin cepat menjawab, makin besar poinnya'], ['🔥', 'Benar beruntun = poin berlipat']].forEach(([b, t]) => {
+      const d = el('div', 'kartu'); d.append(el('b', '', b), el('span', '', t)); cara.appendChild(d);
+    });
+  }
+
+  // ---- Soal (BERJALAN) ----
+  $('soal').textContent = S.soal.teks;
+  if (!LAND) { const n = S.soal.teks.length; $('soal').style.fontSize = n > 90 ? '4.7cqw' : n > 70 ? '5.3cqw' : ''; }
+  const kunciSoal = S.ronde.nomor + ':' + S.soal.nomor;
+  if (st !== 'BERJALAN' || kunciSoal !== kunciTicker) { $('ticker').textContent = ''; kunciTicker = kunciSoal; }
+  $('tingkat').textContent = S.soal.tingkat && S.soal.tingkat !== 'mudah' ? S.soal.tingkat : '';
+  const pil = $('pilihan'); pil.textContent = '';
+  S.soal.pilihan.forEach((t, i) => {
+    const o = el('div', 'kartu opsi');
+    o.append(el('b', '', 'ABCD'[i]), el('span', '', t));
+    o.style.cursor = 'pointer';
+    if (S.status === 'BERJALAN' && pilih === 'ABCD'[i]) o.classList.add('dipilih');
+    o.onclick = () => {
+      if (!S || S.status !== 'BERJALAN') return;
+      pilih = 'ABCD'[i];
+      [...pil.children].forEach((c, j) => c.classList.toggle('dipilih', j === i));
+      Live.api('pilih', { body: { huruf: pilih } }); aturAksi();
+    };
+    pil.appendChild(o);
+  });
+  isiPenjawab(S.penjawab);
+  setCincin(S.sisa, false);
+
+  // ---- Hasil ----
+  const kb = $('kunciBanner'); kb.textContent = '';
+  const tc = $('tercepat'); tc.textContent = '';
+  const jg = $('juga'); jg.textContent = '';
+  const kk = $('klsSesi'); kk.textContent = '';
+  $('hasilPilihan').textContent = '';
+  $('hasilStat').textContent = '';
+  $('soalKecil').textContent = S.soal.teks;
+  const kunciH = S.ronde.nomor + ':' + S.soal.nomor;
+  const ulang = st === 'HASIL' && kunciH === kunciHasil;
+  kunciHasil = st === 'HASIL' ? kunciH : null;
+  $('vHasil').classList.toggle('statis', ulang);
+  const adaAkhir = st === 'RONDE_SELESAI' || st === 'SESI_SELESAI';
+  if (st !== 'HASIL' && !adaAkhir) $('konfeti').textContent = ''; // layar akhir mengatur konfetinya sendiri (K5)
+  if (st === 'HASIL' && S.hasil) {
+    const h = S.hasil;
+    const kanan = el('div');
+    kanan.append(el('small', '', 'Jawaban yang benar'), el('div', 'tk', h.teksKunci));
+    kb.append(el('div', 'hrf', h.kunci), kanan);
+    if (!LAND) hasilPortrait(h, ulang);
+    if (!h.tercepat.length) tc.appendChild(LAND ? el('div', 'kosong', 'Belum ada yang menjawab benar') : kartuKosong(h));
+    h.tercepat.forEach((p, i) => tc.appendChild(LAND ? barisJuara(p, i) : barisTercepat(p, i)));
+    if (h.totalBenar) {
+      const rt = el('div', 'rt');
+      h.juga.avatar.forEach((p) => rt.appendChild(avatar(p)));
+      if (h.juga.jumlah > 0) jg.append(rt, el('span', '', 'Juga benar · ' + h.juga.jumlah + ' orang'));
+    } else if (LAND) {
+      jg.textContent = h.penjawab + ' menjawab, belum ada yang tepat';
+    }
+    if (LAND) {
+      S.klasemen.sesi.forEach((p, i) => kk.appendChild(barisKls(p, i)));
+    } else {
+      const gerak = S.klasemen.sesi.some((p) => p.naik != null); // semua null = soal pertama yang dinilai: tanpa label BARU
+      S.klasemen.sesi.forEach((p, i) => kk.appendChild(barisKlsHasil(p, i, gerak)));
+    }
+    $('kartuKls').hidden = !S.klasemen.sesi.length;
+    if (!LAND && !ulang && h.totalBenar) konfeti();
+  }
+
+  // ---- Ronde selesai / pemenang ----
+  const aj = $('akhirJudul'); aj.textContent = '';
+  const da = $('daftarAkhir'); da.textContent = '';
+  if (st === 'RONDE_SELESAI') {
+    aj.append('Ronde ', el('mark', '', String(S.ronde.nomor)), ' selesai');
+    $('akhirSub').textContent = 'Juara ronde ini';
+    if (!S.klasemen.ronde.length) da.appendChild(el('div', 'kosong', 'Belum ada skor'));
+    S.klasemen.ronde.slice(0, 3).forEach((p, i) => da.appendChild(barisJuara({ ...p, waktu: null }, i, { poinTeks: p.poin + ' poin', tanpaLencana: true })));
+  } else if (st === 'SESI_SELESAI') {
+    aj.append(el('mark', '', 'Pemenang'));
+    $('akhirSub').textContent = 'Terima kasih sudah bermain!';
+    if (!S.klasemen.sesi.length) da.appendChild(el('div', 'kosong', 'Belum ada skor'));
+    S.klasemen.sesi.slice(0, 3).forEach((p, i) => da.appendChild(barisJuara({ ...p, waktu: null }, i, { poinTeks: p.poin + ' poin', tanpaLencana: true })));
+  }
+
+  // K5 (portrait): podium juara ronde/sesi, kabar berikutnya, ajakan follow/bagikan, konfeti.
+  const kunciA = st + ':' + S.ronde.nomor;
+  const ulangA = adaAkhir && kunciA === kunciAkhir;
+  kunciAkhir = adaAkhir ? kunciA : null;
+  $('vAkhir').classList.toggle('statis', ulangA);
+  if (!LAND) {
+    const podiumData = (st === 'RONDE_SELESAI' ? S.klasemen.ronde : S.klasemen.sesi).slice(0, 3);
+    isiPodium(adaAkhir ? podiumData : []);
+    isiKabar();
+    const aA = $('ajakFollowA');
+    aA.hidden = !adaAkhir;
+    if (adaAkhir) isiAjak(aA, st === 'SESI_SELESAI' ? AJAK_AKHIR : AJAK_RONDE);
+    if (adaAkhir && !ulangA) {
+      if (podiumData.length) konfeti(st === 'SESI_SELESAI' ? 36 : 18);
+      else $('konfeti').textContent = '';
+    }
+    segarkanHitung(false);
+  }
+
+  if (LAND) gambarLandscape();
+}
+
+// ---- Khusus landscape ----
+function isiKlasemen(id, daftar) {
+  const w = $(id); w.textContent = '';
+  const d = (daftar || []).slice(0, 5);
+  if (!d.length) { w.appendChild(el('div', 'kosong', 'Belum ada skor')); return; }
+  d.forEach((p, i) => w.appendChild(barisKls(p, i)));
+}
+
+// Teks soal panjang dikecilkan sampai muat di kartunya (batas bawah 60% ukuran awal).
+function fitSoal() {
+  if (!LAND) return;
+  const s = $('soal'), k = s.parentElement;
+  s.style.fontSize = '';
+  if (!k.clientHeight) return; // bukan status BERJALAN, kartu tersembunyi
+  const cs = getComputedStyle(k);
+  const ruang = k.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  let ukuran = parseFloat(getComputedStyle(s).fontSize);
+  const min = ukuran * 0.6;
+  while (ukuran > min && s.offsetHeight > ruang) {
+    ukuran *= 0.94;
+    s.style.fontSize = ukuran.toFixed(2) + 'px';
+  }
+}
+
+function gambarLandscape() {
+  const st = S.status;
+  const adaSkor = S.klasemen.sesi.length > 0;
+  // Kolom kanan hanya saat dibutuhkan: berjalan, hasil, atau intro soal berikutnya yang sudah punya skor.
+  stage.dataset.aside = (st === 'BERJALAN' || st === 'HASIL' || (st === 'SIAP' && adaSkor)) ? '1' : '0';
+  $('jdlRonde').textContent = 'Klasemen ronde ' + String(S.ronde.nomor).padStart(2, '0');
+  isiKlasemen('klsSesiK', S.klasemen.sesi);
+  isiKlasemen('klsRondeK', S.klasemen.ronde);
+  // Petunjuk layar penuh: hanya di soal-soal awal ronde 1.
+  $('layarPenuh').hidden = !(S.ronde.nomor === 1 && S.soal.nomor <= 3 && (st === 'SIAP' || st === 'BERJALAN')) || adaFs();
+  fitSoal();
+}
+if (LAND) window.addEventListener('resize', fitSoal);
+
+// ---- Layar penuh otomatis ----
+// Browser menolak layar penuh tanpa sentuhan pengguna, jadi ketukan pertama (atau tombol F) yang memicunya.
+// Setelah itu langsung layar penuh dan, jika didukung, orientasi dikunci landscape.
+let fsOtomatis = true; // false setelah pengguna keluar layar penuh lewat tombol
+const adaFs = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+async function masukFs() {
+  if (adaFs()) return;
+  const r = document.documentElement;
+  const minta = r.requestFullscreen || r.webkitRequestFullscreen;
+  if (!minta) return; // mis. iPhone: Safari tidak mendukung layar penuh untuk halaman
+  try {
+    await minta.call(r, { navigationUI: 'hide' });
+    if (LAND && screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {});
+  } catch { /* ditolak browser: abaikan */ }
+}
+document.addEventListener('pointerup', (e) => {
+  if (fsOtomatis && !(e.target.closest && e.target.closest('#sx'))) masukFs();
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'f' || e.key === 'F') { fsOtomatis = true; masukFs(); } });
+['fullscreenchange', 'webkitfullscreenchange'].forEach((n) => document.addEventListener(n, () => { if (S && LAND) gambarLandscape(); }));
+masukFs(); // dicoba saat dibuka; hanya berhasil kalau browser mengizinkan
+
+// ---- Audio (disintesis lewat Web Audio, tanpa file) ----
+// Pengaturan tersimpan di browser. Bisa ditimpa lewat URL: ?master=0.7&musik=0.3&efek=1&bisu=1
+const AUD = (() => {
+  const KUNCI = 'angon.audio.v1';
+  const P = new URLSearchParams(location.search);
+  const batas = (v, d) => { v = parseFloat(v); return isFinite(v) ? Math.max(0, Math.min(1, v)) : d; };
+  const cfg = { master: 0.8, musik: 0.35, efek: 0.9, bisu: false };
+  try { Object.assign(cfg, JSON.parse(localStorage.getItem(KUNCI) || '{}')); } catch { /* abaikan */ }
+  ['master', 'musik', 'efek'].forEach((k) => { if (P.has(k)) cfg[k] = batas(P.get(k), cfg[k]); });
+  if (P.get('bisu') === '1') cfg.bisu = true;
+
+  let ctx = null, gMaster, gMusik, gEfek, timer = null, langkah = 0, tNext = 0, tegang = false;
+
+  function terap() {
+    if (!ctx) return;
+    const t = ctx.currentTime;
+    gMaster.gain.setTargetAtTime(cfg.bisu ? 0 : cfg.master, t, 0.05);
+    gMusik.gain.setTargetAtTime(cfg.musik, t, 0.05);
+    gEfek.gain.setTargetAtTime(cfg.efek, t, 0.05);
+  }
+  function simpan() { try { localStorage.setItem(KUNCI, JSON.stringify(cfg)); } catch { /* abaikan */ } }
+
+  const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  function nada(m, t, dur, jenis, vol, lp, atk) {
+    const o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+    o.type = jenis; o.frequency.value = hz(m);
+    f.type = 'lowpass'; f.frequency.value = lp;
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t + atk);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(f); f.connect(g); g.connect(gMusik);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+  function bip(f, t, dur, jenis, vol, f2) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = jenis; o.frequency.setValueAtTime(f, t);
+    if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(vol, t + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(gEfek);
+    o.start(t); o.stop(t + dur + 0.05);
+  }
+
+  // Musik latar: progresi Am - F - C - G, pad lembut + bass + arpeggio.
+  // Arpeggio lebih rapat saat soal berjalan supaya terasa lebih tegang.
+  const AKOR = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]];
+  const POLA = [0, 1, 2, 1, 0, 1, 2, 1];
+  function jadwal() {
+    if (!ctx) return;
+    const L = 60 / 92 / 2;
+    if (tNext < ctx.currentTime) tNext = ctx.currentTime + 0.05;
+    while (tNext < ctx.currentTime + 0.6) {
+      const i = langkah % 8, ak = AKOR[Math.floor(langkah / 8) % AKOR.length];
+      if (i === 0) {
+        ak.forEach((m) => nada(m, tNext, L * 8.2, 'triangle', 0.07, 900, 0.5));
+        nada(ak[0] - 12, tNext, L * 3.6, 'sine', 0.16, 400, 0.02);
+        nada(ak[0] - 12, tNext + L * 4, L * 3.6, 'sine', 0.12, 400, 0.02);
+      }
+      if (tegang || i % 2 === 0) nada(ak[POLA[i]] + 12, tNext, L * 1.6, 'triangle', tegang ? 0.06 : 0.05, 2400, 0.01);
+      tNext += L; langkah++;
+    }
+  }
+
+  const aman = (fn) => (...a) => { try { if (ctx) fn(...a); } catch { /* abaikan */ } };
+  const sfx = {
+    mulai: aman(() => { const t = ctx.currentTime; [523, 659, 784].forEach((f, i) => bip(f, t + i * 0.08, 0.35, 'triangle', 0.22)); }),
+    tik: aman((s) => { bip(s <= 1 ? 1320 : 990, ctx.currentTime, 0.09, 'square', 0.1); }),
+    benar: aman(() => { const t = ctx.currentTime; [659, 784, 988, 1319].forEach((f, i) => bip(f, t + i * 0.09, 0.45, 'triangle', 0.22)); }),
+    salah: aman(() => { bip(220, ctx.currentTime, 0.45, 'sawtooth', 0.14, 110); }),
+    tercepat: aman(() => { const t = ctx.currentTime; [1047, 1319, 1568, 2093].forEach((f, i) => bip(f, t + i * 0.06, 0.3, 'triangle', 0.16)); }),
+    selesai: aman(() => { const t = ctx.currentTime; [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => bip(f, t + i * 0.13, 0.5, 'triangle', 0.22)); }),
+  };
+
+  function init() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    try {
+      ctx = new AC();
+      gMaster = ctx.createGain(); gMusik = ctx.createGain(); gEfek = ctx.createGain();
+      const komp = ctx.createDynamicsCompressor();
+      gMusik.connect(gMaster); gEfek.connect(gMaster); gMaster.connect(komp); komp.connect(ctx.destination);
+      terap();
+      timer = setInterval(jadwal, 150);
+      jadwal();
+    } catch { ctx = null; }
+  }
+  // Browser biasa baru mau bunyi setelah ada sentuhan; OBS biasanya langsung jalan.
+  function buka() { if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {}); }
+  function set(k, v) { cfg[k] = k === 'bisu' ? !!v : batas(v, cfg[k]); terap(); simpan(); }
+
+  init();
+  return { cfg, set, buka, sfx, tegang: (v) => { tegang = v; } };
+})();
+['pointerup', 'keydown'].forEach((n) => document.addEventListener(n, () => AUD.buka()));
+
+// Efek suara mengikuti perubahan status; state pertama saat halaman dibuka tidak dibunyikan.
+let kunciPrev = null, tikPrev = '';
+function tundaSuara(kunci, ms, fn) {
+  if (!ms) { fn(); return; }
+  setTimeout(() => { if (kunciPrev === kunci) fn(); }, ms); // lewati bila layar sudah pindah soal/status
+}
+function suaraState() {
+  if (!S) return;
+  const k = S.status + ':' + S.ronde.nomor + ':' + S.soal.nomor;
+  const awal = kunciPrev === null, sama = k === kunciPrev;
+  kunciPrev = k;
+  AUD.tegang(S.status === 'BERJALAN');
+  if (awal || sama) return;
+  if (S.status === 'BERJALAN') AUD.sfx.mulai();
+  else if (S.status === 'HASIL') {
+    const ada = !!(S.hasil && S.hasil.tercepat && S.hasil.tercepat.length);
+    // K4 (portrait): bunyi menunggu kunci terungkap (±1 dtk) dan pop-up "Tercepat!" (±1,7 dtk); landscape tetap langsung.
+    tundaSuara(k, LAND ? 0 : 1000, ada ? AUD.sfx.benar : AUD.sfx.salah);
+    if (ada && !LAND) tundaSuara(k, 1700, AUD.sfx.tercepat);
+  }
+  else if (S.status === 'RONDE_SELESAI' || S.status === 'SESI_SELESAI') AUD.sfx.selesai();
+}
+function suaraTik() {
+  if (!S || S.status !== 'BERJALAN' || S.sisa > 5 || S.sisa < 1) return;
+  const k = S.soal.nomor + ':' + S.sisa;
+  if (k === tikPrev) return;
+  tikPrev = k;
+  AUD.sfx.tik(S.sisa);
+}
+
+// ---- Pengaturan lain (layar tetap menyala, tombol samar) disimpan di browser ----
+const PG = (() => {
+  const K = 'angon.pg.v1', c = { menyala: true, samar: false };
+  try { Object.assign(c, JSON.parse(localStorage.getItem(K) || '{}')); } catch { /* abaikan */ }
+  return { c, simpan() { try { localStorage.setItem(K, JSON.stringify(c)); } catch { /* abaikan */ } } };
+})();
+let wl = null;
+async function terapMenyala() {
+  try {
+    if (PG.c.menyala) {
+      if (!wl && navigator.wakeLock && document.visibilityState === 'visible') {
+        wl = await navigator.wakeLock.request('screen');
+        wl.addEventListener('release', () => { wl = null; });
+      }
+    } else if (wl) { await wl.release(); wl = null; }
+  } catch { wl = null; }
+}
+document.addEventListener('visibilitychange', terapMenyala); // kunci dilepas browser saat tab tersembunyi
+document.addEventListener('pointerup', terapMenyala);
+terapMenyala();
+
+// ---- Panel suara & pengaturan ----
+// Mode biasa: muncul saat layar disentuh/digerakkan, hilang sendiri.
+// Mode satu HP (kontrol): tombol selalu ada tapi samar, terang hanya saat diketuk (supaya penonton tidak terganggu).
+const sx = $('sx'), sxPanel = $('sxPanel');
+let sxTimer = null;
+const tutupSx = () => { sxPanel.hidden = true; sx.classList.remove('tampil'); };
+function tampilSx() {
+  sx.classList.add('tampil');
+  clearTimeout(sxTimer);
+  sxTimer = setTimeout(() => { if (sxPanel.hidden) sx.classList.remove('tampil'); }, 3500);
+}
+function segarkanSx() {
+  [['Master', 'master'], ['Musik', 'musik'], ['Efek', 'efek']].forEach(([n, k]) => {
+    const v = Math.round(AUD.cfg[k] * 100);
+    $('sx' + n).value = v;
+    $('sxV' + n).textContent = v + '%';
+  });
+  $('sxBisu').textContent = AUD.cfg.bisu ? 'Suara mati · nyalakan' : 'Bisukan semua';
+  $('sxTombol').classList.toggle('bisu', AUD.cfg.bisu);
+  const dukungFs = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+  $('sxFs').hidden = !dukungFs;
+  $('sxFs').textContent = adaFs() ? 'Keluar layar penuh' : 'Layar penuh';
+  $('sxMenyala').hidden = !navigator.wakeLock;
+  $('sxMenyala').textContent = 'Layar tetap menyala: ' + (PG.c.menyala ? 'ya' : 'tidak');
+  $('sxTampil').textContent = LAND ? 'Ganti ke tampilan portrait' : 'Ganti ke tampilan landscape';
+  $('sxSamar').hidden = !KONTROL;
+  $('sxSamar').textContent = 'Tombol ini: ' + (PG.c.samar ? 'samar' : 'terlihat');
+  document.body.classList.toggle('samar', PG.c.samar);
+}
+[['Master', 'master'], ['Musik', 'musik'], ['Efek', 'efek']].forEach(([n, k]) => {
+  $('sx' + n).addEventListener('input', (e) => { AUD.set(k, e.target.value / 100); segarkanSx(); });
+});
+$('sxBisu').addEventListener('click', () => { AUD.set('bisu', !AUD.cfg.bisu); segarkanSx(); });
+$('sxFs').addEventListener('click', () => {
+  if (adaFs()) { fsOtomatis = false; (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+  else { fsOtomatis = true; masukFs(); }
+});
+$('sxMenyala').addEventListener('click', () => { PG.c.menyala = !PG.c.menyala; PG.simpan(); terapMenyala(); segarkanSx(); });
+$('sxTampil').addEventListener('click', () => {
+  const q = new URLSearchParams(location.search);
+  q.set('layout', LAND ? 'portrait' : 'landscape');
+  location.search = q.toString(); // muat ulang dengan tampilan lain; parameter lain tetap
+});
+$('sxSamar').addEventListener('click', () => { PG.c.samar = !PG.c.samar; PG.simpan(); segarkanSx(); });
+$('aksi').addEventListener('click', () => Live.api($('aksi').dataset.a, { body: {} }));
+$('sxTombol').addEventListener('click', () => { if (sxPanel.hidden) { sxPanel.hidden = false; tampilSx(); } else tutupSx(); });
+['fullscreenchange', 'webkitfullscreenchange'].forEach((n) => document.addEventListener(n, segarkanSx));
+if (!KONTROL) ['pointerdown', 'pointermove'].forEach((n) => document.addEventListener(n, tampilSx));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'm' || e.key === 'M') AUD.set('bisu', !AUD.cfg.bisu);
+  else if (e.key === 'ArrowUp') AUD.set('master', AUD.cfg.master + 0.05);
+  else if (e.key === 'ArrowDown') AUD.set('master', AUD.cfg.master - 0.05);
+  else return;
+  segarkanSx(); tampilSx();
+});
+segarkanSx();
+
+// ---- SSE ----
+// Pesan bernama (state, tick, stats) datang dari plugin kuis lewat mesin (live-client.js).
+let pilih = null;
+const aturAksi = () => {
+  const st = S && S.status;
+  if (st !== 'BERJALAN') pilih = null;
+  const a = { SIAP: ['mulai', 'Mulai ▶'], BERJALAN: ['kunci', 'Sudah yakin?'], HASIL: ['lanjut', 'Lanjut ▶'],
+    RONDE_SELESAI: ['lanjut', 'Ronde berikutnya ▶'], SESI_SELESAI: ['ulang', 'Main lagi ↻'] }[st];
+  const b = $('aksi'); b.hidden = !a;
+  if (a) { b.dataset.a = a[0]; b.textContent = a[1]; b.disabled = st === 'BERJALAN' && !pilih; }
+  const akhir = st === 'SESI_SELESAI', rnd = st === 'RONDE_SELESAI';
+  $('podium').style.display = (akhir || rnd) ? 'none' : '';
+  $('daftarAkhir').style.display = (akhir || rnd) ? 'block' : '';
+  if (akhir && S.rapor) tampilRapor(S.rapor);
+  if (rnd && S.rapor) tampilRonde();
+  if (st === 'HASIL' && S.hasil && S.rapor) tampilHasilSaya();
+};
+// Satu pemain: tidak ada "tercepat"/peringkat; hasil soal dan ronde ditampilkan sebagai skor pribadi.
+function tampilHasilSaya() {
+  const h = S.hasil, p = h.tercepat[0], ok = h.totalBenar > 0 && p, sj = S.rapor.jawab;
+  $('stage').dataset.hs = ok ? 'benar' : 'salah';
+  if (ok) return; // jawaban benar memakai tampilan asli (kartu skor, lencana, animasi)
+  $('hasilStat').textContent = sj ? 'Belum tepat, tetap semangat! 💪' : 'Yah, waktunya habis ⏰';
+  [...$('hasilPilihan').children].forEach((row, i) => {
+    const dia = 'ABCD'[i] === sj;
+    row.classList.toggle('milikku', dia && !ok);
+    if (dia) row.appendChild(el('span', 'tag', 'Jawabanmu'));
+  });
+  const k = $('hasilSaya'); k.textContent = '';
+  const kiri = el('div'), kanan = el('div', 'kn');
+  if (ok) kiri.append(el('div', 'pt', '+' + p.poin), el('small', '', 'poin · ' + String(p.waktu).replace('.', ',') + ' detik'));
+  else kiri.append(el('div', 'pt0', 'Jawaban benar: ' + h.kunci), el('small', '', h.teksKunci));
+  if (ok && p.streak >= 2) kanan.appendChild(lencanaApi(p.streak));
+  kanan.appendChild(el('small', '', 'Total ' + fmtPoin(S.rapor.poin) + ' poin'));
+  k.append(kiri, kanan);
+}
+function tampilRonde() {
+  const x = S.rapor.ronde[S.ronde.nomor - 1], pr = x.jumlah ? x.benar / x.jumlah : 0, n = pr >= .9 ? 3 : pr >= .6 ? 2 : 1;
+  $('akhirSub').textContent = 'Kamu benar ' + x.benar + ' dari ' + x.jumlah + ' soal';
+  const da = $('daftarAkhir'); da.textContent = '';
+  const k = el('div', 'rapor');
+  k.append(el('div', 'bintang', '★'.repeat(n) + '☆'.repeat(3 - n)),
+    el('div', 'skor', '+' + fmtPoin((S.klasemen.ronde[0] || {}).poin || 0)),
+    el('div', 'subr', 'poin ronde ini · total ' + fmtPoin(S.rapor.poin)));
+  if (S.rondeBerikut) k.appendChild(el('div', 'subr', 'Berikutnya: ' + S.rondeBerikut.judul + ' · ' + S.rondeBerikut.jumlahSoal + ' soal'));
+  da.appendChild(k);
+}
+function tampilRapor(r) {
+  const aj = $('akhirJudul'); aj.textContent = '';
+  aj.append('Hebat, ', el('mark', '', r.nama), '!');
+  const pr = r.total ? r.benar / r.total : 0, n = pr >= .9 ? 3 : pr >= .6 ? 2 : 1;
+  $('akhirSub').textContent = pr >= .9 ? 'Luar biasa! Nyaris sempurna 🎉' : pr >= .6 ? 'Keren! Sedikit lagi sempurna 👏' : 'Bagus sudah mencoba! Ulangi, pasti naik 💪';
+  const da = $('daftarAkhir'); da.textContent = '';
+  const k = el('div', 'rapor');
+  k.append(el('div', 'bintang', '★'.repeat(n) + '☆'.repeat(3 - n)), el('div', 'skor', fmtPoin(r.poin) + ' poin'),
+    el('div', 'subr', r.benar + ' benar dari ' + r.total + ' soal'));
+  r.ronde.forEach((x) => {
+    const b = el('div', 'rb'), w = el('div', 'bar2');
+    w.style.setProperty('--w', (x.jumlah ? x.benar / x.jumlah * 100 : 0) + '%');
+    b.append(el('span', '', x.judul), el('b', '', x.benar + '/' + x.jumlah), w); k.appendChild(b);
+  });
+  da.appendChild(k);
+}
+const terimaState = (d) => {
+  // K5: hitung mundur otomatis dihitung lokal dari sisa detik yang dikirim mesin (tidak bergantung jam perangkat).
+  akhirOto = d.otomatisDalam != null ? performance.now() + d.otomatisDalam * 1000 : null;
+  S = d; gambar(); suaraState(); aturAksi();
+};
+setInterval(() => segarkanHitung(true), 250);
+Live.on('status', (s) => {
+  const putus = s && (s.alasan === 'mesin_tidak_terjangkau' || s.alasan === 'tanpa_mesin');
+  $('sambung').classList.toggle('ok', !putus);
+});
+Live.onApp('state', terimaState);
+Live.onApp('tick', (d) => { if (S) { S.sisa = d.sisa; setCincin(S.sisa, true); suaraTik(); } });
+Live.onApp('jawab', munculJawab);
+Live.onApp('stats', (d) => { if (S) { S.penjawab = d.penjawab; isiPenjawab(S.penjawab); } });
+// Mesin tidak mengirim state awal: ambil lewat rute plugin tiap (re)koneksi atau ganti app.
+Live.on('app', () => { Live.api('state').then(terimaState).catch(() => { /* plugin belum aktif */ }); });
+
+// ---- Kontrol sentuh tersembunyi: aktif secara bawaan (satu HP). Matikan dengan display.html?kontrol=0 ----
+// Satu HP: ketuk di mana saja = aksi berikutnya (tanpa tombol, jadi penonton tidak melihat apa-apa).
+//   SIAP -> mulai soal | BERJALAN -> kunci | HASIL atau RONDE_SELESAI -> lanjut
+// Tekan-tahan 1,2 detik = lewati soal. Konfirmasi hanya lewat getar HP.
+if (KONTROL) {
+  document.body.classList.add('kontrol');
+  let tahan = null, panjang = false, terakhir = 0;
+  const getar = (ms) => { try { navigator.vibrate && navigator.vibrate(ms); } catch { /* abaikan */ } };
+  const kirimAksi = async (aksi) => {
+    try { await Live.api(aksi, { metode: 'POST', body: {} }); } catch { /* abaikan */ }
+  };
+  const berikut = () => ({ SIAP: 'mulai', BERJALAN: 'kunci', HASIL: 'lanjut', RONDE_SELESAI: 'lanjut' }[S && S.status]);
+  stage.addEventListener('pointerdown', () => {
+    panjang = false;
+    tahan = setTimeout(() => {
+      if (!sxPanel.hidden) return; // panel terbuka: jangan lewati soal
+      panjang = true;
+      if (S && (S.status === 'SIAP' || S.status === 'BERJALAN')) { getar([60, 40, 60]); kirimAksi('lewati'); }
+    }, 1200);
+  });
+  const lepas = (e) => {
+    clearTimeout(tahan);
+    if (e.type === 'pointercancel' || panjang) return;
+    if (!sxPanel.hidden) { tutupSx(); return; } // ketuk di luar panel hanya menutupnya
+    const sekarang = Date.now();
+    if (sekarang - terakhir < 700) return; // cegah ketukan ganda
+    const a = berikut();
+    if (!a) return;
+    terakhir = sekarang;
+    getar(35);
+    kirimAksi(a);
+  };
+  stage.addEventListener('pointerup', lepas);
+  stage.addEventListener('pointercancel', lepas);
+  document.addEventListener('contextmenu', (e) => e.preventDefault());
+}
+</script>
+</body>
+</html>

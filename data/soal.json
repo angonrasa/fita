@@ -1,0 +1,444 @@
+{
+ "ronde": [
+  {
+   "id": "r01",
+   "judul": "IPA",
+   "soal": [
+    {
+     "id": "r01-01",
+     "teks": "Organ yang memompa darah ke seluruh tubuh adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Paru-paru",
+      "Jantung",
+      "Lambung",
+      "Ginjal"
+     ]
+    },
+    {
+     "id": "r01-02",
+     "teks": "Proses tumbuhan membuat makanan dengan bantuan cahaya matahari disebut...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "A",
+     "pilihan": [
+      "Fotosintesis",
+      "Respirasi",
+      "Evaporasi",
+      "Kondensasi"
+     ]
+    },
+    {
+     "id": "r01-03",
+     "teks": "Perubahan wujud dari cair menjadi gas disebut...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "C",
+     "pilihan": [
+      "Membeku",
+      "Mengembun",
+      "Menguap",
+      "Mencair"
+     ]
+    },
+    {
+     "id": "r01-04",
+     "teks": "Alat pernapasan ikan adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Paru-paru",
+      "Insang",
+      "Trakea",
+      "Kulit"
+     ]
+    },
+    {
+     "id": "r01-05",
+     "teks": "Sumber energi utama bagi bumi adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "C",
+     "pilihan": [
+      "Bulan",
+      "Angin",
+      "Matahari",
+      "Batu bara"
+     ]
+    },
+    {
+     "id": "r01-06",
+     "teks": "Planet terbesar di tata surya adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Bumi",
+      "Jupiter",
+      "Saturnus",
+      "Mars"
+     ]
+    },
+    {
+     "id": "r01-07",
+     "teks": "Zat makanan yang berfungsi sebagai pembangun tubuh adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "C",
+     "pilihan": [
+      "Karbohidrat",
+      "Lemak",
+      "Protein",
+      "Vitamin"
+     ]
+    },
+    {
+     "id": "r01-08",
+     "teks": "Hewan yang makanannya hanya tumbuhan disebut...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Karnivora",
+      "Herbivora",
+      "Omnivora",
+      "Insektivora"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r02",
+   "judul": "Matematika",
+   "soal": [
+    {
+     "id": "r02-01",
+     "teks": "3/4 + 1/4 = ...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "A",
+     "pilihan": [
+      "1",
+      "4/8",
+      "3/16",
+      "2"
+     ]
+    },
+    {
+     "id": "r02-02",
+     "teks": "Hasil dari 25 × 12 adalah...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "B",
+     "pilihan": [
+      "250",
+      "300",
+      "275",
+      "320"
+     ]
+    },
+    {
+     "id": "r02-03",
+     "teks": "Keliling persegi dengan sisi 9 cm adalah...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "C",
+     "pilihan": [
+      "18 cm",
+      "81 cm",
+      "36 cm",
+      "27 cm"
+     ]
+    },
+    {
+     "id": "r02-04",
+     "teks": "Luas persegi panjang dengan panjang 8 cm dan lebar 5 cm adalah...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "C",
+     "pilihan": [
+      "13 cm²",
+      "26 cm²",
+      "40 cm²",
+      "45 cm²"
+     ]
+    },
+    {
+     "id": "r02-05",
+     "teks": "0,5 jika ditulis sebagai pecahan adalah...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "A",
+     "pilihan": [
+      "1/2",
+      "1/5",
+      "5/100",
+      "2/5"
+     ]
+    },
+    {
+     "id": "r02-06",
+     "teks": "KPK dari 4 dan 6 adalah...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "B",
+     "pilihan": [
+      "24",
+      "12",
+      "10",
+      "2"
+     ]
+    },
+    {
+     "id": "r02-07",
+     "teks": "FPB dari 12 dan 18 adalah...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "C",
+     "pilihan": [
+      "3",
+      "9",
+      "6",
+      "36"
+     ]
+    },
+    {
+     "id": "r02-08",
+     "teks": "1.000 gram sama dengan...",
+     "tingkat": "mudah",
+     "durasi": 40,
+     "kunci": "C",
+     "pilihan": [
+      "1 ons",
+      "1 kuintal",
+      "1 kilogram",
+      "1 ton"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r03",
+   "judul": "Bahasa & PPKn",
+   "soal": [
+    {
+     "id": "r03-01",
+     "teks": "Lawan kata dari \"rajin\" adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Tekun",
+      "Malas",
+      "Giat",
+      "Ulet"
+     ]
+    },
+    {
+     "id": "r03-02",
+     "teks": "Kata baku yang benar adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Apotik",
+      "Apotek",
+      "Apoteck",
+      "Appotek"
+     ]
+    },
+    {
+     "id": "r03-03",
+     "teks": "Persamaan kata (sinonim) dari \"cerdas\" adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "A",
+     "pilihan": [
+      "Pintar",
+      "Bodoh",
+      "Lambat",
+      "Malas"
+     ]
+    },
+    {
+     "id": "r03-04",
+     "teks": "Kata yang biasa dipakai dalam kalimat ajakan adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "A",
+     "pilihan": [
+      "Mari",
+      "Sudah",
+      "Sedang",
+      "Telah"
+     ]
+    },
+    {
+     "id": "r03-05",
+     "teks": "Sila pertama Pancasila berbunyi...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "C",
+     "pilihan": [
+      "Kemanusiaan yang adil dan beradab",
+      "Persatuan Indonesia",
+      "Ketuhanan Yang Maha Esa",
+      "Keadilan sosial bagi seluruh rakyat Indonesia"
+     ]
+    },
+    {
+     "id": "r03-06",
+     "teks": "Lambang sila ketiga Pancasila adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "C",
+     "pilihan": [
+      "Bintang",
+      "Rantai",
+      "Pohon beringin",
+      "Kepala banteng"
+     ]
+    },
+    {
+     "id": "r03-07",
+     "teks": "Semboyan negara Indonesia adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Tut Wuri Handayani",
+      "Bhinneka Tunggal Ika",
+      "Garuda Pancasila",
+      "Merdeka atau Mati"
+     ]
+    },
+    {
+     "id": "r03-08",
+     "teks": "Sikap yang tepat saat berbeda pendapat dengan teman adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Memaksakan pendapat",
+      "Menghargai pendapat teman",
+      "Marah",
+      "Meninggalkan teman"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "r04",
+   "judul": "IPS",
+   "soal": [
+    {
+     "id": "r04-01",
+     "teks": "Proklamasi kemerdekaan Indonesia dibacakan pada tanggal...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "A",
+     "pilihan": [
+      "17 Agustus 1945",
+      "1 Juni 1945",
+      "28 Oktober 1928",
+      "10 November 1945"
+     ]
+    },
+    {
+     "id": "r04-02",
+     "teks": "Sumpah Pemuda diikrarkan pada tahun...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "1908",
+      "1928",
+      "1945",
+      "1950"
+     ]
+    },
+    {
+     "id": "r04-03",
+     "teks": "Rumah adat Minangkabau disebut...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Joglo",
+      "Rumah Gadang",
+      "Honai",
+      "Tongkonan"
+     ]
+    },
+    {
+     "id": "r04-04",
+     "teks": "Tari Saman berasal dari provinsi...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "A",
+     "pilihan": [
+      "Aceh",
+      "Bali",
+      "Papua",
+      "Jawa Barat"
+     ]
+    },
+    {
+     "id": "r04-05",
+     "teks": "Samudra yang berada di sebelah selatan Indonesia adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Atlantik",
+      "Hindia",
+      "Arktik",
+      "Pasifik"
+     ]
+    },
+    {
+     "id": "r04-06",
+     "teks": "Garis khatulistiwa berada pada garis lintang...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "A",
+     "pilihan": [
+      "0°",
+      "23,5° LU",
+      "90°",
+      "66,5° LS"
+     ]
+    },
+    {
+     "id": "r04-07",
+     "teks": "Orang yang memakai barang atau jasa disebut...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "B",
+     "pilihan": [
+      "Produsen",
+      "Konsumen",
+      "Distributor",
+      "Pedagang"
+     ]
+    },
+    {
+     "id": "r04-08",
+     "teks": "Tokoh yang dijuluki Bapak Pendidikan Nasional adalah...",
+     "tingkat": "mudah",
+     "durasi": 30,
+     "kunci": "A",
+     "pilihan": [
+      "Ki Hajar Dewantara",
+      "R.A. Kartini",
+      "Ir. Soekarno",
+      "Cut Nyak Dien"
+     ]
+    }
+   ]
+  }
+ ]
+}
